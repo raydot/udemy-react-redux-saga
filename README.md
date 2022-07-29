@@ -1,3 +1,7 @@
+# udemy-react-redux-saga
+
+Icaro Lavrador's Udemy Course in React, React Redux and Redux Saga, State, and Hooks
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

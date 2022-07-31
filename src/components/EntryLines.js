@@ -8,7 +8,10 @@ function EntryLines({ entries, deleteEntry, editEntry }) {
       {entries.map((entry) => (
         <EntryLine
           key={entry.id}
-          entry={entry}
+          // description={entry.description}
+          // value={entry.value}
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...entry}
           deleteEntry={deleteEntry}
           editEntry={editEntry}
         />

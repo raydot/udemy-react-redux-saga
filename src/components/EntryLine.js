@@ -4,9 +4,12 @@ import {
 } from 'semantic-ui-react';
 
 function EntryLine({
-  entry: {
-    id, description, value, isExpense = false,
-  }, deleteEntry, editEntry,
+  id,
+  description,
+  value,
+  isExpense,
+  deleteEntry,
+  editEntry,
 }) {
   return (
     <Segment color={isExpense ? 'red' : 'green'}>

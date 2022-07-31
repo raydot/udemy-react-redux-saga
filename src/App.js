@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
+/* eslint-disable react/jsx-no-bind */
+import React, { useEffect, useState } from 'react';
 import {
   Container,
 } from 'semantic-ui-react';
@@ -22,12 +23,6 @@ function App() {
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
   const [total, setTotal] = useState(0);
-
-  function resetEntry() {
-    setDescription('');
-    setValue('');
-    setIsExpense(true);
-  }
 
   useEffect(() => {
     if (!isOpen && entryId) {
@@ -55,18 +50,16 @@ function App() {
     setTotal(incomeTotal - expenseTotal);
     setTotalExpense(expenseTotal);
     setTotalIncome(incomeTotal);
-    // console.log(`Income: ${totalIncome}, Expenses: ${totalExpenses}`);
   }, [entries]);
 
-  const deleteEntry = useCallback((id) => {
+  function deleteEntry(id) {
     const result = entries.filter((entry) => entry.id !== id);
     setEntries(result);
-  }, [entries]); // Using useCallback instead of passing the function as a prop.
+  }
 
-  const editEntry = useCallback((id) => {
-    // console.log(`edit entry with id: ${id}`);
+  function editEntry(id) {
     if (id) {
-      const index = entries.findIndex((entry) => entry.id === id);
+      const index = entries.findIndex((entry) => entry.id === entryId);
       const entry = entries[index];
       setEntryId(id);
       setDescription(entry.description);
@@ -74,25 +67,29 @@ function App() {
       setIsExpense(entry.isExpense);
       setIsOpen(true);
     }
-  }, [entries]);
+  }
 
   /* eslint-disable no-shadow */
-  const addEntry = useCallback(() => {
+  function addEntry() {
     const result = entries.concat({
-      id: entries.length + 3,
+      id: entries.length + 2,
       description,
       value,
       isExpense,
     });
-    // console.log('result', result);
-    // console.log('entries', entries);
     setEntries(result);
     resetEntry();
-  }, [entries]);
+  }
+
+  function resetEntry() {
+    // console.log('RES:', description, value);
+    setDescription('');
+    setValue('');
+    setIsExpense(true);
+  }
 
   return (
     <Container>
-
       <MainHeader title="Budget" />
       <DisplayBalance title="Your Balance" value={total} size="small" />
       <DisplayBalances totalIncome={totalIncome} totalExpense={totalExpense} />

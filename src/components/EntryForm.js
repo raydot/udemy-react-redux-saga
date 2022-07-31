@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import React from 'react';
 import { Checkbox, Form, Segment } from 'semantic-ui-react';
 
@@ -6,18 +7,18 @@ function EntryForm({
 }) {
     return (
         <>
-            <Form.Group>
+            <Form.Group width={3}>
                 <Form.Input
                     icon="tags"
-                    width={10}
+                    width={12}
                     label="Description"
                     placeholder="New shiny thing."
                     value={description}
                     onChange={(event) => setDescription(event.target.value)}
                 />
                 <Form.Input
-                    width={6}
-                    label="value"
+                    width={2}
+                    label="Value"
                     placeholder="100.00"
                     icon="dollar"
                     iconPosition="left"

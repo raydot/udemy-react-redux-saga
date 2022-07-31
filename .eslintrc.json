@@ -23,6 +23,8 @@
         "react/prop-types": "off",
         "indent": "off",
         "react/jsx-indent": "off",
-        "react/jsx-indent-props": "off"
+        "react/jsx-indent-props": "off",
+        "react/jsx-no-bind": [ "error", { "ignoreDOMComponents": true, "allowArrowFunctions": true } ],
+        "no-use-before-define": ["error", {"functions": false}]
     }
 }

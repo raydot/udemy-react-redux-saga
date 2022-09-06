@@ -25,6 +25,8 @@
         "react/jsx-indent": "off",
         "react/jsx-indent-props": "off",
         "react/jsx-no-bind": [ "error", { "ignoreDOMComponents": true, "allowArrowFunctions": true } ],
-        "no-use-before-define": ["error", {"functions": false}]
+        "no-use-before-define": ["error", {"functions": false}],
+        "default-param-last": "off",
+        "camelcase": "off"
     }
 }

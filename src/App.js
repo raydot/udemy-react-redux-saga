@@ -4,17 +4,19 @@ import {
   Container,
 } from 'semantic-ui-react';
 import './App.css';
+// import { createStore, combineReducers } from 'redux';
+import { useSelector } from 'react-redux';
 import MainHeader from './components/MainHeader';
 import NewEntryForm from './components/NewEntryForm';
 import DisplayBalances from './components/DisplayBalances';
 import EntryLines from './components/EntryLines';
 import ModalEdit from './components/ModalEdit';
-import DisplayBalance from './components/DisplayBalance';
+import DisplayBalance from './components/DisplayBalance'; // initialize so it can be declared at bottom
 
-let initialEntries; // initialize so it can be declared at bottom
+// let initialEntries;
 
 function App() {
-  const [entries, setEntries] = useState(initialEntries);
+  // const [entries, setEntries] = useState(initialEntries);
   const [description, setDescription] = useState('');
   const [value, setValue] = useState('');
   const [isExpense, setIsExpense] = useState(true);
@@ -23,6 +25,7 @@ function App() {
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
   const [total, setTotal] = useState(0);
+  const entries = useSelector((state) => state.entries);
 
   useEffect(() => {
     if (!isOpen && entryId) {
@@ -31,7 +34,8 @@ function App() {
       newEntries[index].description = description;
       newEntries[index].value = value;
       newEntries[index].isExpense = isExpense;
-      setEntries(newEntries);
+      // setEntries(newEntries);
+
       resetEntry();
     }
   }, [isOpen]);
@@ -51,11 +55,25 @@ function App() {
     setTotalExpense(expenseTotal);
     setTotalIncome(incomeTotal);
   }, [entries]);
+  ///
 
-  function deleteEntry(id) {
-    const result = entries.filter((entry) => entry.id !== id);
-    setEntries(result);
-  }
+  // An observer!
+  // store.subscribe(() => {
+  //   console.log('store:', store.getState());
+  // });
+
+  // Early dispatch tests
+  // store.dispatch(addEntryRedux(payload_add));
+  // store.dispatch({ type: 'REMOVE_ENTRY', payload: payload_remove });
+  // store.dispatch(removeEntryRedux(2));
+
+  ///
+  // This has now been moved into a Redux action
+  // function deleteEntry(id) {
+  //   const result = entries.filter((entry) => entry.id !== id);
+  //   console.log(result);
+  //   // setEntries(result);
+  // }
 
   function editEntry(id) {
     if (id) {
@@ -71,13 +89,13 @@ function App() {
 
   /* eslint-disable no-shadow */
   function addEntry() {
-    const result = entries.concat({
-      id: entries.length + 2,
-      description,
-      value,
-      isExpense,
-    });
-    setEntries(result);
+    // //const result = entries.concat({
+    //   id: entries.length + 2,
+    //   description,
+    //   value,
+    //   isExpense,
+    // });
+    // setEntries(result);
     resetEntry();
   }
 
@@ -98,7 +116,6 @@ function App() {
 
       <EntryLines
         entries={entries}
-        deleteEntry={deleteEntry}
         editEntry={editEntry}
       />
 
@@ -129,7 +146,7 @@ function App() {
 
 export default App;
 
-initialEntries = [{
+/* initialEntries = [{
   id: 2,
   description: 'Work income',
   value: 1000.00,
@@ -154,3 +171,4 @@ initialEntries = [{
   isExpense: true,
 },
 ];
+*/

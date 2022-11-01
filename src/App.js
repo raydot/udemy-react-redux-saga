@@ -13,36 +13,38 @@ import EntryLines from './components/EntryLines';
 import ModalEdit from './components/ModalEdit';
 import DisplayBalance from './components/DisplayBalance'; // initialize so it can be declared at bottom
 
-// let initialEntries;
-
 function App() {
   // const [entries, setEntries] = useState(initialEntries);
-  const [description, setDescription] = useState('');
-  const [value, setValue] = useState('');
-  const [isExpense, setIsExpense] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
-  const [entryId, setEntryId] = useState();
+  // const [description, setDescription] = useState('');
+  // const [value, setValue] = useState('');
+  // const [isExpense, setIsExpense] = useState(true);
+  // const [isOpen, setIsOpen] = useState(false);
+  // const [entryId, setEntryId] = useState();
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
   const [total, setTotal] = useState(0);
+  const [entry, setEntry] = useState();
+  const { isOpen, id } = useSelector((state) => state.modals);
   const entries = useSelector((state) => state.entries);
 
   useEffect(() => {
-    if (!isOpen && entryId) {
-      const index = entries.findIndex((entry) => entry.id === entryId);
-      const newEntries = [...entries];
-      newEntries[index].description = description;
-      newEntries[index].value = value;
-      newEntries[index].isExpense = isExpense;
-      // setEntries(newEntries);
-
-      resetEntry();
-    }
-  }, [isOpen]);
+    // if (!isOpen && entryId) {
+    //   const index = entries.findIndex((entry) => entry.id === entryId);
+    //   const newEntries = [...entries];
+    //   newEntries[index].description = description;
+    //   newEntries[index].value = value;
+    //   newEntries[index].isExpense = isExpense;
+    //   resetEntry();
+    // }
+    // eslint-disable-next-line no-shadow
+    const index = entries.findIndex((entry) => entry.id === id);
+    setEntry(entries[index]);
+  }, [isOpen, id]);
 
   useEffect(() => {
     let incomeTotal = 0;
     let expenseTotal = 0;
+    // eslint-disable-next-line no-shadow
     entries.map((entry) => {
       if (entry.isExpense) {
         expenseTotal += Number(entry.value);
@@ -55,56 +57,29 @@ function App() {
     setTotalExpense(expenseTotal);
     setTotalIncome(incomeTotal);
   }, [entries]);
-  ///
 
-  // An observer!
-  // store.subscribe(() => {
-  //   console.log('store:', store.getState());
-  // });
-
-  // Early dispatch tests
-  // store.dispatch(addEntryRedux(payload_add));
-  // store.dispatch({ type: 'REMOVE_ENTRY', payload: payload_remove });
-  // store.dispatch(removeEntryRedux(2));
-
-  ///
-  // This has now been moved into a Redux action
-  // function deleteEntry(id) {
-  //   const result = entries.filter((entry) => entry.id !== id);
-  //   console.log(result);
-  //   // setEntries(result);
+  // function editEntry(id) {
+  //   if (id) {
+  //     const index = entries.findIndex((entry) => entry.id === entryId);
+  //     const entry = entries[index];
+  //     setEntryId(id);
+  //     setDescription(entry.description);
+  //     setValue(entry.value);
+  //     setIsExpense(entry.isExpense);
+  //     setIsOpen(true);
+  //   }
   // }
 
-  function editEntry(id) {
-    if (id) {
-      const index = entries.findIndex((entry) => entry.id === entryId);
-      const entry = entries[index];
-      setEntryId(id);
-      setDescription(entry.description);
-      setValue(entry.value);
-      setIsExpense(entry.isExpense);
-      setIsOpen(true);
-    }
-  }
+  // /* eslint-disable no-shadow */
+  // function addEntry() {
+  //   resetEntry();
+  // }
 
-  /* eslint-disable no-shadow */
-  function addEntry() {
-    // //const result = entries.concat({
-    //   id: entries.length + 2,
-    //   description,
-    //   value,
-    //   isExpense,
-    // });
-    // setEntries(result);
-    resetEntry();
-  }
-
-  function resetEntry() {
-    // console.log('RES:', description, value);
-    setDescription('');
-    setValue('');
-    setIsExpense(true);
-  }
+  // function resetEntry() {
+  //   setDescription('');
+  //   setValue('');
+  //   setIsExpense(true);
+  // }
 
   return (
     <Container>
@@ -116,59 +91,19 @@ function App() {
 
       <EntryLines
         entries={entries}
-        editEntry={editEntry}
+        // editEntry={editEntry}
       />
 
       <MainHeader title="Add New Transaction" type="h3" />
-      <NewEntryForm
-        addEntry={addEntry}
-        description={description}
-        value={value}
-        isExpense={isExpense}
-        setDescription={setDescription}
-        setValue={setValue}
-        setIsExpense={setIsExpense}
-      />
+      <NewEntryForm />
       <ModalEdit
         isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        addEntry={addEntry}
-        description={description}
-        value={value}
-        isExpense={isExpense}
-        setDescription={setDescription}
-        setValue={setValue}
-        setIsExpense={setIsExpense}
+        entry={entry}
+        // {...entry} // This is what Icaro does but the
+        // linter forbids passing spread props to components.
       />
     </Container>
   );
 }
 
 export default App;
-
-/* initialEntries = [{
-  id: 2,
-  description: 'Work income',
-  value: 1000.00,
-  isExpense: false,
-},
-{
-  id: 3,
-  description: 'Water Bill',
-  value: 121.00,
-  isExpense: true,
-},
-{
-  id: 4,
-  description: 'Rent',
-  value: 300.00,
-  isExpense: true,
-},
-{
-  id: 5,
-  description: 'ConEd',
-  value: 25,
-  isExpense: true,
-},
-];
-*/

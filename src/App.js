@@ -14,12 +14,6 @@ import ModalEdit from './components/ModalEdit';
 import DisplayBalance from './components/DisplayBalance'; // initialize so it can be declared at bottom
 
 function App() {
-  // const [entries, setEntries] = useState(initialEntries);
-  // const [description, setDescription] = useState('');
-  // const [value, setValue] = useState('');
-  // const [isExpense, setIsExpense] = useState(true);
-  // const [isOpen, setIsOpen] = useState(false);
-  // const [entryId, setEntryId] = useState();
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
   const [total, setTotal] = useState(0);
@@ -28,14 +22,6 @@ function App() {
   const entries = useSelector((state) => state.entries);
 
   useEffect(() => {
-    // if (!isOpen && entryId) {
-    //   const index = entries.findIndex((entry) => entry.id === entryId);
-    //   const newEntries = [...entries];
-    //   newEntries[index].description = description;
-    //   newEntries[index].value = value;
-    //   newEntries[index].isExpense = isExpense;
-    //   resetEntry();
-    // }
     // eslint-disable-next-line no-shadow
     const index = entries.findIndex((entry) => entry.id === id);
     setEntry(entries[index]);
@@ -57,29 +43,6 @@ function App() {
     setTotalExpense(expenseTotal);
     setTotalIncome(incomeTotal);
   }, [entries]);
-
-  // function editEntry(id) {
-  //   if (id) {
-  //     const index = entries.findIndex((entry) => entry.id === entryId);
-  //     const entry = entries[index];
-  //     setEntryId(id);
-  //     setDescription(entry.description);
-  //     setValue(entry.value);
-  //     setIsExpense(entry.isExpense);
-  //     setIsOpen(true);
-  //   }
-  // }
-
-  // /* eslint-disable no-shadow */
-  // function addEntry() {
-  //   resetEntry();
-  // }
-
-  // function resetEntry() {
-  //   setDescription('');
-  //   setValue('');
-  //   setIsExpense(true);
-  // }
 
   return (
     <Container>

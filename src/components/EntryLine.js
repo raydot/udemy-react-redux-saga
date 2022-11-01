@@ -11,7 +11,6 @@ function EntryLine({
   description,
   value,
   isExpense,
-  // editEntry,
 }) {
   const dispatch = useDispatch();
   return (

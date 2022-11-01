@@ -9,7 +9,7 @@ const reducer = (state = initialEntries, action) => {
     let newEntries;
     switch (action.type) {
         case 'ADD_ENTRY': {
-            // This is error.  Should not modify entries directly:
+            // This is an error.  Should not modify entries directly:
             // const newEntries = entries.concat({ ...action.payload });
             newEntries = state.concat({ ...action.payload });
             return newEntries;
